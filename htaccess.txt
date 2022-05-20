@@ -1,0 +1,125 @@
+RewriteEngine on
+#COMMENT |  >If you want to people only connect to our https instead of http so that your ssl certificate to effect on page directly . 
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+#COMMENT | >They insert www.example.com and see your index file.
+DirectoryIndex index.php index.html
+#COMMEN | >If ur url www.example.com just use IfModule to give RewriteRule and RewriteCond depending on your page frame setup
+
+#COMMENT | >None can iframe add your sites video to save your bandwidth you do it.
+Header always append X-Frame-Options DENY
+
+#COMMENT | >Insert SSL cert in all pages
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://example.com/$1 [R,L]
+
+#COMMENT | >Allow google bots
+SetEnvIfNoCase User-Agent .*oftaculou.* good_bot
+
+#COMMENT | >Allow youtube bots
+SetEnvIfNoCase User-Agent .*outub.* good_bot
+SetEnvIfNoCase User-Agent .*ou-tub.* good_bot
+
+SetEnvIfNoCase User-Agent .*oogle.* good_bot
+SetEnvIfNoCase User-Agent .*ens.* good_bot
+SetEnvIfNoCase User-Agent .*nalytic.* good_bot
+
+#COMMENT | >allow FB bots
+SetEnvIfNoCase User-Agent .*aceboo.* good_bot
+
+#COMMENT | >blocks Mozilla bots
+SetEnvIfNoCase User-Agent ^Mozilla/5.0$ bad_bot
+SetEnvIfNoCase User-Agent ^-$ bad_bot
+SetEnvIfNoCase User-Agent ^Mozilla$ bad_bot
+
+#COMMENT | blocks Baidu
+SetEnvIfNoCase User-Agent .*ai.* bad_bot
+
+#COMMENT | >blocks Yandex
+SetEnvIfNoCase User-Agent .*ande.* bad_bot
+
+#COMMENT | >blocks most Scanners
+SetEnvIfNoCase User-Agent .*can.* bad_bot
+
+
+#COMMENT |  >blocks most cgi hackers. delete if you use cgi
+SetEnvIfNoCase User-Agent cg.* bad_bot
+SetEnvIfNoCase User-Agent .*cg.* bad_bot
+
+#COMMENT |  >blocks hackers looking for config.php
+SetEnvIfNoCase User-Agent conf.* bad_bot
+SetEnvIfNoCase User-Agent .*conf.* bad_bot
+
+
+ #COMMENT |  >blocks hackers some script bots
+SetEnvIfNoCase User-Agent .*crip.* bad_bot
+
+
+#COMMENT |  >blocks .exe code injection attempts
+SetEnvIfNoCase User-Agent ex.* bad_bot
+SetEnvIfNoCase User-Agent .*ex.* bad_bot
+
+#COMMENT |  >blocks some blackhat hackers
+SetEnvIfNoCase User-Agent .*hat.* bad_bot
+SetEnvIfNoCase User-Agent .*hat bad_bot
+
+#COMMENT |  >blocks Indybot a notorious bandwidth hog
+SetEnvIfNoCase User-Agent indybot bad_bot
+SetEnvIfNoCase User-Agent indy.* bad_bot
+SetEnvIfNoCase User-Agent .*indy.* bad_bot
+
+ #COMMENT |  >blocks remote javascript code injection attempts
+SetEnvIfNoCase User-Agent jav.* bad_bot
+SetEnvIfNoCase User-Agent .*jav.* bad_bot
+
+#COMMENT |  >blocks hackers and bots looking for your logs
+SetEnvIfNoCase User-Agent log bad_bot
+SetEnvIfNoCase User-Agent log.* bad_bot
+SetEnvIfNoCase User-Agent .*log.* bad_bot
+SetEnvIfNoCase User-Agent .*log bad_bot
+
+#COMMENT | >blocks Morfeus which attempts to exploit your SOAP file
+#COMMENT | >This is extremely dangerous
+SetEnvIfNoCase User-Agent .*orfeu.* bad_bot
+
+ #COMMENT | >This blocks remote php file exploits
+SetEnvIfNoCase User-Agent .*php.* bad_bot
+SetEnvIfNoCase User-Agent .*php bad_bot
+
+#COMMENT |  >blocks some portscanners
+SetEnvIfNoCase User-Agent port bad_bot
+SetEnvIfNoCase User-Agent port.* bad_bot
+SetEnvIfNoCase User-Agent .*port.* bad_bot
+SetEnvIfNoCase User-Agent .*port bad_bot
+
+ #COMMENT |  >blocks query and hotel.qunar exploits
+SetEnvIfNoCase User-Agent .*qu.* bad_bot
+SetEnvIfNoCase User-Agent qu.* bad_bot
+
+ #COMMENT |  >blocks some proxys IMPORTANT delete this if you have visitors from Africa since many connections are made with Africa/Proxy
+SetEnvIfNoCase User-Agent .*rox.* bad_bot
+
+ #COMMENT |  >blocks mysql or sql exploits
+SetEnvIfNoCase User-Agent sq.* bad_bot
+SetEnvIfNoCase User-Agent .*sq.* bad_bot
+
+ #COMMENT | >blocks a URL scraper code
+SetEnvIfNoCase User-Agent .*url.* bad_bot
+
+ #COMMENT | >This blocks pythonrequests
+SetEnvIfNoCase User-Agent .*yth.* bad_bot
+
+#COMMENT | >blocks zeus (a dangerous hack code)
+SetEnvIfNoCase User-Agent zeu.* bad_bot
+SetEnvIfNoCase User-Agent .*zeu.* bad_bot
+
+#COMMENT |  >blocks ZmEu (a dangerous hack code)
+SetEnvIfNoCase User-Agent zme.* bad_bot
+SetEnvIfNoCase User-Agent .*zme.* bad_bot
+
+#COMMENT | >blocks zgrab (a dangerous hack code)
+SetEnvIfNoCase User-Agent zgra.* bad_bot
+SetEnvIfNoCase User-Agent .*zgra.* bad_bot
+
+
